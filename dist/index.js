@@ -9837,16 +9837,28 @@ module.exports = class Organization {
       });
   }
 
-  findUsers(org) {
-    return this.octokit.paginate("GET /orgs/:org/members", {org: org, per_page: 100})
+  async findUsers(org) {
+    const collaborators = await this.octokit.paginate("GET /orgs/:org/outside_collaborators", {org: org, per_page: 100})
+    .then(collaborators => {
+      return collaborators.map(collaborator => {
+        return {
+          login: collaborator.login,
+          email: collaborator.email || '',
+          type: 'outside_collaborators'
+        };
+      });
+    });
+    const members = await this.octokit.paginate("GET /orgs/:org/members", {org: org, per_page: 100})
       .then(members => {
         return members.map(member => {
           return {
             login: member.login,
-            email: member.email || ''
+            email: member.email || '',
+            type: 'members'
           };
         });
       });
+    return [...collaborators, ...members];
   }
 
   get octokit() {
