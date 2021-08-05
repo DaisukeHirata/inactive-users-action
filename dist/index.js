@@ -9449,6 +9449,7 @@ module.exports = class OrganizationUserActivity {
       } else {
         const userData = new UserActivity(user.login);
         userData.email = user.email;
+        userData.memberType = user.memberType;
 
         userActivity[user.login] = userData
       }
@@ -9516,8 +9517,16 @@ module.exports = class UserActivity {
         return this._email || '';
     }
 
+    get memberType() {
+        return this._memberType;
+    }
+
     set email(email) {
         this._email = email;
+    }
+
+    set memberType(memberType) {
+        this._memberType = memberType;
     }
 
     get isActive() {
@@ -9556,7 +9565,8 @@ module.exports = class UserActivity {
             result = {
                 login: this.login,
                 email: this.email,
-                isActive: this.isActive
+                isActive: this.isActive,
+                memberType: this.memberType
             };
 
         Object.values(UserActivityAttributes).forEach(type => {
@@ -9844,7 +9854,7 @@ module.exports = class Organization {
         return {
           login: collaborator.login,
           email: collaborator.email || '',
-          type: 'outside_collaborators'
+          memberType: 'outside_collaborators'
         };
       });
     });
@@ -9854,7 +9864,7 @@ module.exports = class Organization {
           return {
             login: member.login,
             email: member.email || '',
-            type: 'members'
+            memberType: 'members'
           };
         });
       });

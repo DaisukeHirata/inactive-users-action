@@ -20,8 +20,16 @@ module.exports = class UserActivity {
         return this._email || '';
     }
 
+    get memberType() {
+        return this._memberType;
+    }
+
     set email(email) {
         this._email = email;
+    }
+
+    set memberType(memberType) {
+        this._memberType = memberType;
     }
 
     get isActive() {
@@ -60,7 +68,8 @@ module.exports = class UserActivity {
             result = {
                 login: this.login,
                 email: this.email,
-                isActive: this.isActive
+                isActive: this.isActive,
+                memberType: this.memberType
             };
 
         Object.values(UserActivityAttributes).forEach(type => {

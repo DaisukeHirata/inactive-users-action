@@ -42,6 +42,7 @@ module.exports = class OrganizationUserActivity {
       } else {
         const userData = new UserActivity(user.login);
         userData.email = user.email;
+        userData.memberType = user.memberType;
 
         userActivity[user.login] = userData
       }

@@ -29,7 +29,7 @@ module.exports = class Organization {
         return {
           login: collaborator.login,
           email: collaborator.email || '',
-          type: 'outside_collaborators'
+          memberType: 'outside_collaborators'
         };
       });
     });
@@ -39,7 +39,7 @@ module.exports = class Organization {
           return {
             login: member.login,
             email: member.email || '',
-            type: 'members'
+            memberType: 'members'
           };
         });
       });
