@@ -2,6 +2,7 @@
 
 A GitHub Action that can be run against a GitHub Organization to generate a report on user activity for a given time 
 period. This can be useful in detecting inactive users so that licenses can be reclaimed.
+This is basically forked from peter-murray/inactive-users-action. The difference is outside_collaborators are also included in the report.
 
 ## Processing
 
@@ -36,10 +37,10 @@ Invoke the action step providing the required parameters to analyze user activit
 ```
 name: Analyze User Activity
 id: analyze_user_activity
-uses: peter-murray/inactive-users-action@v1
+uses: DaisukeHirata/inactive-users-action@v2
 with:
   token: ${{ secrets.ORGANIZATION_AND_REPO_ACCESS_TOKEN }}
-  organization: octodemo
+  organization: monstar-lab-oss
 ```
 
 Get user activity in the last 90 days for an organization and save the output CSV file as a build artifact:
@@ -47,7 +48,7 @@ Get user activity in the last 90 days for an organization and save the output CS
 ```
 - name: Analyze User Activity
   id: analyze_user_activity
-  uses: peter-murray/inactive-users-action@v1
+  uses: DaisukeHirata/inactive-users-action@v2
   with:
     token: ${{ secrets.ORGANIZATION_AND_REPO_ACCESS_TOKEN }}
     organization: octodemo
